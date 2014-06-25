@@ -1,0 +1,6 @@
+name: BuildPlugin
+main: net.mcshockwave.build.BuildPlugin
+version: 1.0
+author: Blaxcraft
+commands:
+   bp:
