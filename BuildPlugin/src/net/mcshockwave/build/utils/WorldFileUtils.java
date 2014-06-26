@@ -82,5 +82,15 @@ public class WorldFileUtils {
 	public static void set(World w, String[] setTo) {
 		set(w.getName(), setTo);
 	}
+	
+	public static ArrayList<String> fromArray(String[] ar) {
+		ArrayList<String> ret = new ArrayList<>();
+		
+		for (String s : ar) {
+			ret.add(s);
+		}
+		
+		return ret;
+	}
 
 }
