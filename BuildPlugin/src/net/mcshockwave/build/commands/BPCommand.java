@@ -1,5 +1,6 @@
 package net.mcshockwave.build.commands;
 
+import net.mcshockwave.build.BuildPlugin;
 import net.mcshockwave.build.FileElements;
 import net.mcshockwave.build.utils.WorldFileUtils;
 
@@ -25,6 +26,7 @@ public class BPCommand implements CommandExecutor {
 				if (cmd.equalsIgnoreCase("setspawn")) {
 					String team = args[1];
 					Location loc = p.getLocation();
+					loc = BuildPlugin.roundLocation(loc);
 
 					FileElements.set(team + "-spawnpoint", loc, w);
 
@@ -43,6 +45,7 @@ public class BPCommand implements CommandExecutor {
 
 				if (cmd.equalsIgnoreCase("setlobby")) {
 					Location loc = p.getLocation();
+					loc = BuildPlugin.roundLocation(loc);
 
 					FileElements.set("lobby", loc, w);
 
@@ -75,6 +78,7 @@ public class BPCommand implements CommandExecutor {
 				if (cmd.equalsIgnoreCase("setloc")) {
 					String el = args[1];
 					Location loc = p.getLocation();
+					loc = BuildPlugin.roundLocation(loc);
 
 					FileElements.set(el, loc, w);
 
