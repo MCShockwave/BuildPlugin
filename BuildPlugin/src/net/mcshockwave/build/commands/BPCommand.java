@@ -30,8 +30,8 @@ public class BPCommand implements CommandExecutor {
 
 					FileElements.set(team + "-spawnpoint", loc, w);
 
-					p.sendMessage("§cSet spawn for " + team + " at current location in " + w.getName());
-					p.sendMessage("§eLocation: "
+					p.sendMessage("Â§cSet spawn for " + team + " at current location in " + w.getName());
+					p.sendMessage("Â§eLocation: "
 							+ String.format("x%s y%s z%s yaw%s pit%s", loc.getX(), loc.getY(), loc.getZ(),
 									loc.getYaw(), loc.getPitch()));
 				}
@@ -40,7 +40,7 @@ public class BPCommand implements CommandExecutor {
 					String team = args[1];
 					Location tp = FileElements.getLoc(team + "-spawnpoint", w);
 					p.teleport(tp);
-					p.sendMessage("§cTeleported to spawn for " + team + " at " + w.getName());
+					p.sendMessage("Â§cTeleported to spawn for " + team + " at " + w.getName());
 				}
 
 				if (cmd.equalsIgnoreCase("setlobby")) {
@@ -49,8 +49,8 @@ public class BPCommand implements CommandExecutor {
 
 					FileElements.set("lobby", loc, w);
 
-					p.sendMessage("§cSet lobby at current location in " + w.getName());
-					p.sendMessage("§eLocation: "
+					p.sendMessage("Â§cSet lobby at current location in " + w.getName());
+					p.sendMessage("Â§eLocation: "
 							+ String.format("x%s y%s z%s yaw%s pit%s", loc.getX(), loc.getY(), loc.getZ(),
 									loc.getYaw(), loc.getPitch()));
 				}
@@ -58,7 +58,7 @@ public class BPCommand implements CommandExecutor {
 				if (cmd.equalsIgnoreCase("gotolobby")) {
 					Location tp = FileElements.getLoc("lobby", w);
 					p.teleport(tp);
-					p.sendMessage("§cTeleported to lobby at " + w.getName());
+					p.sendMessage("Â§cTeleported to lobby at " + w.getName());
 				}
 
 				if (cmd.equalsIgnoreCase("setblock")) {
@@ -66,7 +66,7 @@ public class BPCommand implements CommandExecutor {
 					@SuppressWarnings("deprecation")
 					Location bloc = p.getTargetBlock(null, 100).getLocation();
 					FileElements.set(el, bloc, w);
-					p.sendMessage("§cSet target block to element " + el);
+					p.sendMessage("Â§cSet target block to element " + el);
 				}
 
 				if (cmd.equalsIgnoreCase("getblock")) {
@@ -82,8 +82,8 @@ public class BPCommand implements CommandExecutor {
 
 					FileElements.set(el, loc, w);
 
-					p.sendMessage("§cSet " + el + " to current location in " + w.getName());
-					p.sendMessage("§eLocation: "
+					p.sendMessage("Â§cSet " + el + " to current location in " + w.getName());
+					p.sendMessage("Â§eLocation: "
 							+ String.format("x%s y%s z%s yaw%s pit%s", loc.getX(), loc.getY(), loc.getZ(),
 									loc.getYaw(), loc.getPitch()));
 				}
@@ -92,11 +92,11 @@ public class BPCommand implements CommandExecutor {
 					String el = args[1];
 					Location tp = FileElements.getLoc(el, w);
 					p.teleport(tp);
-					p.sendMessage("§cTeleported to " + el + " at " + w.getName());
+					p.sendMessage("Â§cTeleported to " + el + " at " + w.getName());
 				}
 
 				if (cmd.equalsIgnoreCase("regen")) {
-					p.sendMessage("§cRegenerated file for " + w.getName());
+					p.sendMessage("Â§cRegenerated file for " + w.getName());
 					WorldFileUtils.set(w, new String[0]);
 				}
 
@@ -108,11 +108,11 @@ public class BPCommand implements CommandExecutor {
 					append = append.replaceFirst(" ", "");
 
 					WorldFileUtils.append(w, append);
-					p.sendMessage("§cAppended \"" + append + "\" to " + w.getName());
+					p.sendMessage("Â§cAppended \"" + append + "\" to " + w.getName());
 				}
 
 				if (cmd.equalsIgnoreCase("read")) {
-					p.sendMessage("§cLines of file for " + w.getName());
+					p.sendMessage("Â§cLines of file for " + w.getName());
 					String[] get = WorldFileUtils.get(w);
 					for (String s : get) {
 						p.sendMessage(s);
@@ -129,13 +129,13 @@ public class BPCommand implements CommandExecutor {
 
 					FileElements.set(el, setto, w.getName());
 
-					p.sendMessage("§cSet element '" + el + "' to \"" + setto + "\" in world " + w.getName());
+					p.sendMessage("Â§cSet element '" + el + "' to \"" + setto + "\" in world " + w.getName());
 				}
 
 				if (cmd.equalsIgnoreCase("get")) {
 					String el = args[1];
 
-					p.sendMessage("§cElement '" + el + "' is \"" + FileElements.get(el, w.getName()) + "\" in "
+					p.sendMessage("Â§cElement '" + el + "' is \"" + FileElements.get(el, w.getName()) + "\" in "
 							+ w.getName());
 				}
 			}

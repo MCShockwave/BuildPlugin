@@ -30,7 +30,7 @@ public class DefaultListener implements Listener {
 		if (a == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock().getType() == Material.MOB_SPAWNER
 				&& event.getPlayer().getGameMode() == GameMode.CREATIVE && p.isOp()) {
 			event.setCancelled(true);
-			ItemMenu m = new ItemMenu("§9Select Mob", ids.length);
+			ItemMenu m = new ItemMenu("Â§9Select Mob", ids.length);
 			int ind = -1;
 			for (final int d : ids) {
 				Button mob = new Button(true, Material.MONSTER_EGG, 1, d, "");
@@ -41,7 +41,7 @@ public class DefaultListener implements Listener {
 						CreatureSpawner s = (CreatureSpawner) b.getState();
 						s.setSpawnedType(EntityType.fromId(d));
 						s.update();
-						p.sendMessage("§aSet spawner to spawn entity " + EntityType.fromId(d).name());
+						p.sendMessage("Â§aSet spawner to spawn entity " + EntityType.fromId(d).name());
 					}
 				});
 				m.addButton(mob, ++ind);
