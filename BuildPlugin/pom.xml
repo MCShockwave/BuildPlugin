@@ -6,9 +6,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>BuildPlugin</name>
 	<packaging>jar</packaging>
-	<properties>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
