@@ -1,6 +1,7 @@
 package net.mcshockwave.build;
 
 import net.mcshockwave.build.commands.BPCommand;
+import net.mcshockwave.build.commands.SkullCommand;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -17,6 +18,7 @@ public class BuildPlugin extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new DefaultListener(), this);
 
 		getCommand("bp").setExecutor(new BPCommand());
+		getCommand("skull").setExecutor(new SkullCommand());
 	}
 
 	public static Location roundLocation(Location toRound) {

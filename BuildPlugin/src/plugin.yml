@@ -4,3 +4,4 @@ version: 1.0
 author: Blaxcraft
 commands:
    bp:
+   skull:
