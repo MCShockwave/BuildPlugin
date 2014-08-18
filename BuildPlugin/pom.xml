@@ -25,8 +25,37 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.3.1</version>
 				<configuration>
-					<outputDirectory>C:\Eclipse Exports\</outputDirectory>
+					<outputDirectory>C:\Eclipse Exports\unshaded</outputDirectory>
 					<finalName>${project.artifactId}</finalName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<artifactSet>
+						<includes>
+							<include>commons-net:commons-net</include>
+						</includes>
+					</artifactSet>
+					<filters>
+						<filter>
+							<artifact>commons-net:commons-net</artifact>
+							<includes>
+								<include>org/apache/commons/net/**</include>
+							</includes>
+						</filter>
+					</filters>
+					<finalName>${project.artifactId}</finalName>
+					<outputDirectory>C:\Eclipse Exports</outputDirectory>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -57,6 +86,11 @@
 		</repository>
 	</repositories>
 	<dependencies>
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>2.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>

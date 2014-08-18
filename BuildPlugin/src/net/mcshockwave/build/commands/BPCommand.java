@@ -138,6 +138,10 @@ public class BPCommand implements CommandExecutor {
 					p.sendMessage("§cElement '" + el + "' is \"" + FileElements.get(el, w.getName()) + "\" in "
 							+ w.getName());
 				}
+
+				if (cmd.equalsIgnoreCase("push")) {
+					BuildPlugin.pushMap(args[1]);
+				}
 			}
 		}
 		return false;
