@@ -11,6 +11,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -39,6 +41,13 @@ public class BuildPlugin extends JavaPlugin {
 	}
 
 	public static void createClientAndUpload(String world) {
+//		zipFile(new File(world), new File("/Maps/test.zip"));
+		File directoryToZip = new File(world);
+
+		List<File> fileList = new ArrayList<File>();
+		Compressor.getAllFiles(directoryToZip, fileList);
+		Compressor.writeZipFile(directoryToZip, fileList);
+
 		FTPClient client = new FTPClient();
 		try {
 			client.connect("ftp.mcsw.us");
@@ -48,7 +57,7 @@ public class BuildPlugin extends JavaPlugin {
 			if (client.login("hostserver@mcsw.us", "MCShockwaveStaff")) {
 				client.setFileType(FTP.BINARY_FILE_TYPE);
 				client.setFileTransferMode(FTP.BINARY_FILE_TYPE);
-				uploadFile(client, new File(world));
+				uploadFile(client, new File(world + ".zip"));
 			}
 		} catch (Exception e) {
 		}
