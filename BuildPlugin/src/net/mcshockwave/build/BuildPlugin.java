@@ -5,6 +5,10 @@ import net.mcshockwave.build.commands.SkullCommand;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -12,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.net.ftp.FTP;
@@ -31,6 +36,33 @@ public class BuildPlugin extends JavaPlugin {
 		getCommand("skull").setExecutor(new SkullCommand());
 	}
 
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if (!(sender instanceof Player)) {
+			return false;
+		}
+		Player p = (Player) sender;
+		if (args.length > 0) {
+			String cmd = "";
+			for (int i = 0; i < args.length; i++) {
+				cmd += args[i] + " ";
+			}
+			cmd = cmd.substring(0, cmd.length() - 1);
+			if (cmd.startsWith("/")) {
+				cmd = cmd.replaceFirst("/", "");
+			}
+
+			if (!DefaultListener.powertools.containsKey(p.getName())) {
+				DefaultListener.powertools.put(p.getName(), new HashMap<ItemStack, String>());
+			}
+			DefaultListener.powertools.get(p.getName()).put(
+					new ItemStack(p.getItemInHand().getType(), 1, p.getItemInHand().getDurability()), cmd);
+
+			p.sendMessage("§6Powertool for item set to \"" + cmd + "\"");
+		}
+		return false;
+	}
+
 	public static void pushMap(final String world) {
 		new BukkitRunnable() {
 			public void run() {
@@ -41,7 +73,7 @@ public class BuildPlugin extends JavaPlugin {
 	}
 
 	public static void createClientAndUpload(String world) {
-//		zipFile(new File(world), new File("/Maps/test.zip"));
+		// zipFile(new File(world), new File("/Maps/test.zip"));
 		File directoryToZip = new File(world);
 
 		List<File> fileList = new ArrayList<File>();

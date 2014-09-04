@@ -17,15 +17,31 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 public class DefaultListener implements Listener {
 
-	int[]	ids	= { 50, 51, 52, 54, 55, 56, 57, 58, 59, 60, 61, 62, 65, 66, 90, 91, 92, 93, 94, 95, 96, 98, 100, 120 };
+	int[]														ids			= { 50, 51, 52, 54, 55, 56, 57, 58, 59, 60,
+			61, 62, 65, 66, 90, 91, 92, 93, 94, 95, 96, 98, 100, 120		};
+
+	public static HashMap<String, HashMap<ItemStack, String>>	powertools	= new HashMap<>();
 
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
 		Action a = event.getAction();
 		final Block b = event.getClickedBlock();
+		ItemStack it = event.getItem();
+
+		if (it != null && a.name().contains("RIGHT_CLICK") && powertools.containsKey(p.getName())) {
+			HashMap<ItemStack, String> cmds = powertools.get(p.getName());
+			for (Entry<ItemStack, String> en : cmds.entrySet()) {
+				if (en.getKey().getType() == it.getType() && en.getKey().getDurability() == it.getDurability()) {
+					p.performCommand(en.getValue());
+				}
+			}
+		}
 
 		if (a == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock().getType() == Material.MOB_SPAWNER
 				&& event.getPlayer().getGameMode() == GameMode.CREATIVE && p.isOp()) {
