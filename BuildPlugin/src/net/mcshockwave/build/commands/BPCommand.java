@@ -119,6 +119,32 @@ public class BPCommand implements CommandExecutor {
 					}
 				}
 
+				if (cmd.equalsIgnoreCase("addloc")) {
+					int id = 0;
+					while (FileElements.has(args[1] + "-" + ++id, w.getName())) {
+					}
+					String el = args[1] + "-" + id;
+					Location loc = p.getLocation();
+					loc = BuildPlugin.roundLocation(loc);
+
+					FileElements.set(el, loc, w);
+
+					p.sendMessage("§cSet " + el + " to current location in " + w.getName());
+					p.sendMessage("§eLocation: "
+							+ String.format("x%s y%s z%s yaw%s pit%s", loc.getX(), loc.getY(), loc.getZ(),
+									loc.getYaw(), loc.getPitch()));
+				}
+				if (cmd.equalsIgnoreCase("addblock")) {
+					int id = 0;
+					while (FileElements.has(args[1] + "-" + ++id, w.getName())) {
+					}
+					String el = args[1] + "-" + id;
+					@SuppressWarnings("deprecation")
+					Location bloc = p.getTargetBlock(null, 100).getLocation();
+					FileElements.set(el, bloc, w);
+					p.sendMessage("§cSet target block to element " + el);
+				}
+
 				if (cmd.equalsIgnoreCase("set")) {
 					String el = args[1];
 					String setto = "";
