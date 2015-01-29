@@ -2,6 +2,7 @@ package net.mcshockwave.build.commands;
 
 import net.mcshockwave.build.BuildPlugin;
 import net.mcshockwave.build.FileElements;
+import net.mcshockwave.build.utils.LaserTagMapGenerator;
 import net.mcshockwave.build.utils.WorldFileUtils;
 
 import org.bukkit.Location;
@@ -167,6 +168,12 @@ public class BPCommand implements CommandExecutor {
 
 				if (cmd.equalsIgnoreCase("push")) {
 					BuildPlugin.pushMap(args[1]);
+				}
+				
+				if (cmd.equalsIgnoreCase("ltmap")) {
+					Location cent = p.getLocation().clone().add(0, -1, 0);
+					int rad = Integer.parseInt(args[1]);
+					LaserTagMapGenerator.generate(cent, rad);
 				}
 			}
 		}
