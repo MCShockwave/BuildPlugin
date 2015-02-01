@@ -1,5 +1,7 @@
 package net.mcshockwave.build.commands;
 
+import net.mcshockwave.MCS.Utils.PacketUtils;
+import net.mcshockwave.MCS.Utils.PacketUtils.ParticleEffect;
 import net.mcshockwave.build.BuildPlugin;
 import net.mcshockwave.build.FileElements;
 import net.mcshockwave.build.utils.LaserTagMapGenerator;
@@ -11,12 +13,18 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
+
+import java.util.HashMap;
 
 public class BPCommand implements CommandExecutor {
 
+	public static HashMap<String, BukkitTask>	showTasks	= new HashMap<>();
+
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
-			Player p = (Player) sender;
+			final Player p = (Player) sender;
 			World w = p.getWorld();
 
 			if (args.length == 0) {
@@ -169,11 +177,34 @@ public class BPCommand implements CommandExecutor {
 				if (cmd.equalsIgnoreCase("push")) {
 					BuildPlugin.pushMap(args[1]);
 				}
-				
+
 				if (cmd.equalsIgnoreCase("ltmap")) {
 					Location cent = p.getLocation().clone().add(0, -1, 0);
 					int rad = Integer.parseInt(args[1]);
 					LaserTagMapGenerator.generate(cent, rad);
+				}
+
+				if (cmd.equalsIgnoreCase("showall")) {
+					if (showTasks.containsKey(p.getName())) {
+						showTasks.get(p.getName()).cancel();
+						showTasks.remove(p.getName());
+						p.sendMessage("§cStopped showing");
+					} else {
+						final String show = args[1];
+						showTasks.put(p.getName(), new BukkitRunnable() {
+							public void run() {
+								if (!p.isOnline()) {
+									showTasks.remove(p.getName());
+									cancel();
+								}
+								for (Location l : FileElements.getAll(show, p.getWorld())) {
+									PacketUtils.playParticleEffect(ParticleEffect.WITCH_MAGIC,
+											l.clone().add(0.5, 0.5, 0.5), 0, 0.05f, 2);
+								}
+							}
+						}.runTaskTimer(BuildPlugin.ins, 2, 2));
+						p.sendMessage("§aShowing all blocks named " + show);
+					}
 				}
 			}
 		}
